@@ -10,4 +10,4 @@ cp ~/.osx osx
 cp ~/.profile profile
 cp ~/.screenrc screenrc
 cp ~/.vimrc vimrc
-
+cp ~/.gitconfig gitconfig

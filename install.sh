@@ -16,6 +16,7 @@ cp osx ~/.osx
 cp profile ~/.profile
 cp screenrc ~/.screenrc
 cp vimrc ~/.vimrc
+cp gitconfig ~/.gitconfig
 
 # Install Vundle for Vim
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
