@@ -26,6 +26,9 @@ filetype plugin indent on
 " }}}
 
 " Plugin settings: {{{
+" Syntastic
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 " powerline
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 set laststatus=2
@@ -133,7 +136,7 @@ function! JAVASET()
   set cindent
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :make<cr>:!java %< %<cr>
+  nnoremap <buffer> <F9> :!javac %<cr>:!java %< %<cr>
 endfunction
 
 " vim scripts
@@ -168,6 +171,8 @@ endfunction
 
 " Ruby
 function! RUBYSET()
+  set autoindent!
+  set noexpandtab!
   set tabstop=2
   set softtabstop=2
   set shiftwidth=2
@@ -190,6 +195,7 @@ autocmd FileType c      call CSET()
 autocmd FileType C      call CPPSET()
 autocmd FileType cc     call CPPSET()
 autocmd FileType cpp    call CPPSET()
+autocmd FileType java   call JAVASET()
 autocmd FileType tex    call TEXSET()
 autocmd FileType make   call MAKEFILESET()
 autocmd FileType html   call HTMLSET()
