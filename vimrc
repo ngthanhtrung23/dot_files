@@ -1,3 +1,4 @@
+" -----------------------------------------------------------------------------
 " Plugins: {{{
 set nocompatible
 filetype off
@@ -41,6 +42,7 @@ color jellybeans
 map <C-p> :CtrlP<CR>
 " }}}
 
+" -----------------------------------------------------------------------------
 " Stuffs that should be set by default: {{{
 syntax on
 set nocompatible  " use new features whenever they are available
@@ -88,7 +90,7 @@ set ignorecase    " default should ignore case
 set smartcase     " use case sensitive if I use uppercase
 " }}}
 
-" ======================================================================================================
+" -----------------------------------------------------------------------------
 " <Tab> at the end of a word should attempt to complete it using tokens from the current file: {{{
 function! My_Tab_Completion()
     if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
@@ -98,9 +100,8 @@ function! My_Tab_Completion()
 endfunction
 inoremap <Tab> <C-R>=My_Tab_Completion()<CR>
 " }}}
-" ======================================================================================================
 
-" ======================================================================================================
+" -----------------------------------------------------------------------------
 " Specific settings for specific filetypes:  {{{
 
 " usual policy: if there is a Makefile present, :mak calls make, otherwise we define a command to compile the filetype
@@ -204,5 +205,4 @@ autocmd FileType python call PYSET()
 autocmd FileType ruby   call RUBYSET()
 autocmd Filetype markdown call MARKDOWNSET()
 " }}}
-" ======================================================================================================
 
