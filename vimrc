@@ -36,10 +36,11 @@ set laststatus=2
 set t_Co=256
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
-" jellybeans
-color jellybeans
 " ctrlp
 map <C-p> :CtrlP<CR>
+" jellybeans
+set background=dark
+color jellybeans  " set background=dark for other machine, but use jellybeans in my computer
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -66,7 +67,6 @@ set shiftround    " when shifting non-aligned set of lines, align them to next t
 " }}}
 
 " Misc {{{
-set background=dark
 set autoread      " auto re-read changes outside vim
 set autowrite     " auto save before make/execute
 set pastetoggle=<F10>
@@ -138,6 +138,7 @@ function! JAVASET()
   set textwidth=0
   set nowrap
   nnoremap <buffer> <F9> :!javac %<cr>:!java %< %<cr>
+  nnoremap <C-c> ^i// <esc>
 endfunction
 
 " vim scripts
@@ -145,6 +146,7 @@ function! VIMSET()
   set textwidth=0
   set nowrap
   set comments+=b:\"
+  nnoremap <C-c> ^i" <esc>
 endfunction
 
 " Makefile
@@ -168,6 +170,7 @@ function! PYSET()
   set textwidth=0
   set nowrap
   nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
+  nnoremap <C-c> ^i# <esc>
 endfunction
 
 " Ruby
@@ -180,6 +183,7 @@ function! RUBYSET()
   set expandtab
   nnoremap <buffer> <F9> :exec '!ruby' shellescape(@%, 1)<cr>
   nnoremap <buffer> <F8> :exec '!rspec' shellescape(@%, 1)<cr>
+  nnoremap <C-c> ^i# <esc>
 endfunction
 
 " Markdown
