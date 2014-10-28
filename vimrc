@@ -21,6 +21,7 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-fugitive'
 Bundle 'mileszs/ack.vim'
 Bundle 'vsushkov/nerdtree-ack'
+Bundle 'ngthanhtrung23/vim-markdown'
 
 call vundle#end()
 filetype plugin indent on
@@ -189,80 +190,6 @@ function! RUBYSET()
   nnoremap <C-c> ^i# <esc>
 endfunction
 
-" Markdown
-function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
-  let ft=toupper(a:filetype)
-  let group='textGroup'.ft
-  if exists('b:current_syntax')
-    let s:current_syntax=b:current_syntax
-    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
-    " do nothing if b:current_syntax is defined.
-    unlet b:current_syntax
-  endif
-  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
-  try
-    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
-  catch
-  endtry
-  if exists('s:current_syntax')
-    let b:current_syntax=s:current_syntax
-  else
-    unlet b:current_syntax
-  endif
-  execute 'syntax region textSnip'.ft.'
-  \ matchgroup='.a:textSnipHl.'
-  \ start="'.a:start.'" end="'.a:end.'"
-  \ contains=@'.group
-endfunction
-
-function! MARKDOWNSET()
-  set wrap
-  " I hate markdown highlight which does not allow mathjax $...$ and code --> create my own here
-  " Many of the following are copied from vim-markdown/syntax/mkd.vim (https://github.com/plasticboy/vim-markdown/blob/master/syntax/mkd.vim)
-  set ft=tex
-
-  " HTML headings
-  syn region htmlH1       start="^\s*#"                   end="\($\|#\+\)" contains=@Spell
-  syn region htmlH2       start="^\s*##"                  end="\($\|#\+\)" contains=@Spell
-  syn region htmlH3       start="^\s*###"                 end="\($\|#\+\)" contains=@Spell
-  syn region htmlH4       start="^\s*####"                end="\($\|#\+\)" contains=@Spell
-  syn region htmlH5       start="^\s*#####"               end="\($\|#\+\)" contains=@Spell
-  syn region htmlH6       start="^\s*######"              end="\($\|#\+\)" contains=@Spell
-  syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
-  syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
-
-  " List
-  syn match  mkdListItem   "^\s*[-*+]\s\+"
-  syn match  mkdListItem   "^\s*\d\+\.\s\+"
-  hi link mkdListItem      Identifier
-
-  " Link
-  syn region mkdFootnotes matchgroup=mkdDelimiter start="\[^"      end="\]"
-  syn region mkdID matchgroup=mkdDelimiter        start="\["       end="\]" contained oneline
-  syn region mkdURL matchgroup=mkdDelimiter       start="("        end=")"  contained oneline
-  syn region mkdLink matchgroup=mkdDelimiter      start="\\\@<!\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite oneline
-  hi link mkdLink          htmlLink
-  hi link mkdURL           htmlString
-
-  " Code
-  syn region mkdCode       start=/^\s*```\s*[0-9A-Za-z_-]*\s*$/    end=/^\s*```\s*$/  contains=@CPP
-  hi link mkdCode          String
-
-  call TextEnableCodeSnip('cpp', '```cpp', '```', 'SpecialComment')
-  call TextEnableCodeSnip('java', '```java', '```', 'SpecialComment')
-
-  " Highlight
-  syn region htmlItalic start="\\\@<!\*\S\@=" end="\S\@<=\\\@<!\*" keepend oneline
-  syn region htmlItalic start="\(^\|\s\)\@<=_\|\\\@<!_\([^_]\+\s\)\@=" end="\S\@<=_\|_\S\@=" keepend oneline
-  syn region htmlBold start="\S\@<=\*\*\|\*\*\S\@=" end="\S\@<=\*\*\|\*\*\S\@=" keepend oneline
-  syn region htmlBold start="\S\@<=__\|__\S\@=" end="\S\@<=__\|__\S\@=" keepend oneline
-  syn region htmlBoldItalic start="\S\@<=\*\*\*\|\*\*\*\S\@=" end="\S\@<=\*\*\*\|\*\*\*\S\@=" keepend oneline
-  syn region htmlBoldItalic start="\S\@<=___\|___\S\@=" end="\S\@<=___\|___\S\@=" keepend oneline
-endfunction
-
-" Identify Markdown files
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-
 " Autocommands for all languages:
 autocmd FileType vim    call VIMSET()
 autocmd FileType c      call CSET()
@@ -276,6 +203,5 @@ autocmd FileType html   call HTMLSET()
 autocmd FileType php    call HTMLSET()
 autocmd FileType python call PYSET()
 autocmd FileType ruby   call RUBYSET()
-autocmd Filetype markdown call MARKDOWNSET()
 " }}}
 
