@@ -56,6 +56,7 @@ set nu            " show line number
 set hlsearch      " highlight search result
 " y and d put stuff into system clipboard (so that other apps can see it)
 set clipboard=unnamed,unnamedplus
+set mouse=a       " enable mouse
 " }}}
 
 " Shortcuts
