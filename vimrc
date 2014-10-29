@@ -175,6 +175,10 @@ function! PYSET()
   set nowrap
   nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
   nnoremap <C-c> ^i# <esc>
+  " Docstring should be highlighted as comment
+  syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?"""+ end=+"""+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
+  syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?'''+ end=+'''+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
+  hi  link   pythonDocstring  Comment
 endfunction
 
 " Ruby
@@ -185,6 +189,11 @@ function! RUBYSET()
   set softtabstop=2
   set shiftwidth=2
   set expandtab
+
+  " I prefer using same highlight for Ruby string and Ruby symbol
+  hi clear rubySymbol
+  hi link  rubySymbol String
+
   nnoremap <buffer> <F9> :exec '!ruby' shellescape(@%, 1)<cr>
   nnoremap <buffer> <F8> :exec '!rspec' shellescape(@%, 1)<cr>
   nnoremap <C-c> ^i# <esc>
