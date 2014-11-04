@@ -49,3 +49,8 @@ fi;
 
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
+
+# Setting PATH for JRuby 1.6.8
+# The orginal version is saved in .bash_profile.jrubysave
+PATH="${PATH}:/Library/Frameworks/JRuby.framework/Versions/Current/bin"
+export PATH

@@ -4,6 +4,9 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias -- -="cd -"
+alias proj="cd ~/Code/Projects"
+alias pp="cd ~/Code/PP"
+alias PP="cd ~/Code/PP"
 
 # Shortcuts
 alias g="git"
