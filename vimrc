@@ -38,7 +38,7 @@ set t_Co=256
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
 " ctrlp
-map <C-p> :CtrlP<CR>
+map <C-p> :CtrlP<CR><F5>
 " jellybeans
 set background=dark
 color jellybeans  " set background=dark for other machine, but use jellybeans in my computer
@@ -56,7 +56,7 @@ set nu            " show line number
 set hlsearch      " highlight search result
 " y and d put stuff into system clipboard (so that other apps can see it)
 set clipboard=unnamed,unnamedplus
-set mouse=a       " enable mouse
+set mouse=a       " enable mouse. At least this should work for iTerm
 " }}}
 
 " Shortcuts
@@ -128,7 +128,7 @@ function! CPPSET()
   set cindent
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :w<cr>:!clang++ % -o %< -std=c++11 -stdlib=libc++ -I ./<cr>:!./%<<cr>
+  nnoremap <buffer> <F9> :w<cr>:!clang++ % -o %< -std=c++11 -stdlib=libc++ -I ./<cr>:!clear;./%<<cr>
   nnoremap <buffer> <F8> :w<cr>:!clang++ % -o %< -std=c++11 -stdlib=libc++ -I ./<cr>
   nnoremap <C-c> ^i// <esc>
 endfunction
@@ -139,7 +139,7 @@ function! JAVASET()
   set cindent
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :!javac %<cr>:!java %< %<cr>
+  nnoremap <buffer> <F9> :!javac %<cr>:!clear;java %< %<cr>
   nnoremap <C-c> ^i// <esc>
 endfunction
 
@@ -174,7 +174,7 @@ endfunction
 function! PYSET()
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
+  nnoremap <buffer> <F9> :exec '!clear;python' shellescape(@%, 1)<cr>
   nnoremap <C-c> ^i# <esc>
   " Docstring should be highlighted as comment
   syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?"""+ end=+"""+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
@@ -195,9 +195,27 @@ function! RUBYSET()
   hi clear rubySymbol
   hi link  rubySymbol String
 
-  nnoremap <buffer> <F9> :exec '!ruby' shellescape(@%, 1)<cr>
-  nnoremap <buffer> <F8> :exec '!rspec' shellescape(@%, 1)<cr>
+  " Some simple highlight for Capybara
+  syn keyword rubyRailsTestMethod feature scenario before after 
+  hi link rubyRailsTestMethod Function
+
+  nnoremap <buffer> <F9> :exec '!clear;ruby' shellescape(@%, 1)<cr>
+  nnoremap <buffer> <F8> :exec '!clear;rspec' shellescape(@%, 1)<cr>
   nnoremap <C-c> ^i# <esc>
+endfunction
+
+" SQL
+function! SQLSET()
+  syn keyword sqlStatement use describe
+  nnoremap <C-c> ^i-- <esc>
+  nnoremap <buffer> <F9> :!clear;mysql -u root -p test < %<cr>
+endfunction
+
+" BASH
+function! BASHSET()
+  syn keyword shStatement mkdir cp
+  nnoremap <C-c> ^i# <esc>
+  nnoremap <buffer> <F9> :!clear;./%<cr>
 endfunction
 
 " Autocommands for all languages:
@@ -213,5 +231,7 @@ autocmd FileType html   call HTMLSET()
 autocmd FileType php    call HTMLSET()
 autocmd FileType python call PYSET()
 autocmd FileType ruby   call RUBYSET()
+autocmd FileType sql    call SQLSET()
+autocmd FileType sh     call BASHSET()
 " }}}
 
