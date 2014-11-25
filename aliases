@@ -7,6 +7,8 @@ alias -- -="cd -"
 alias proj="cd ~/Code/Projects"
 alias pp="cd ~/Code/PP"
 alias PP="cd ~/Code/PP"
+alias cf="cd ~/Code/ACM/Codeforces; rm ?; rm ?.cpp"
+alias g++="g++-4.9"
 
 # Shortcuts
 alias g="git"

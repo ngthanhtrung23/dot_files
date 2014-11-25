@@ -14,14 +14,16 @@ Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-surround'
+"Bundle 'tpope/vim-surround'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'tpope/vim-fugitive'
+"Bundle 'tpope/vim-fugitive'
 Bundle 'mileszs/ack.vim'
 Bundle 'vsushkov/nerdtree-ack'
 Bundle 'ngthanhtrung23/vim-markdown'
+Bundle 'ngthanhtrung23/vim-comment'
+" Bundle 'Valloric/YouCompleteMe'
 
 call vundle#end()
 filetype plugin indent on
@@ -29,14 +31,27 @@ filetype plugin indent on
 
 " Plugin settings: {{{
 " Syntastic
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+let g:syntastic_cpp_compiler = 'g++-4.9'
+let g:syntastic_cpp_compiler_options = ' -std=c++11'
 " powerline
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 set laststatus=2
 set t_Co=256
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+" Close all open buffers on entering a window if the only
+" buffer that's left is the NERDTree buffer
+function! s:CloseIfOnlyNerdTreeLeft()
+  if exists("t:NERDTreeBufName")
+    if bufwinnr(t:NERDTreeBufName) != -1
+      if winnr("$") == 1
+        q
+      endif
+    endif
+  endif
+endfunction
 " ctrlp
 map <C-p> :CtrlP<CR><F5>
 " jellybeans
@@ -94,13 +109,14 @@ set smartcase     " use case sensitive if I use uppercase
 
 " -----------------------------------------------------------------------------
 " <Tab> at the end of a word should attempt to complete it using tokens from the current file: {{{
-function! My_Tab_Completion()
-    if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-        return "\<C-P>"
-    else
-        return "\<Tab>"
+function! MyTabCompletion()
+  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+    return "\<C-P>"
+  else
+    return "\<Tab>"
+  endif
 endfunction
-inoremap <Tab> <C-R>=My_Tab_Completion()<CR>
+inoremap <Tab> <C-R>=MyTabCompletion()<CR>
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -128,9 +144,8 @@ function! CPPSET()
   set cindent
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :w<cr>:!clang++ % -o %< -std=c++11 -stdlib=libc++ -I ./<cr>:!clear;./%<<cr>
-  nnoremap <buffer> <F8> :w<cr>:!clang++ % -o %< -std=c++11 -stdlib=libc++ -I ./<cr>
-  nnoremap <C-c> ^i// <esc>
+  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>:!clear;./%<<cr>
+  nnoremap <buffer> <F8> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>
 endfunction
 
 " Java
@@ -139,8 +154,8 @@ function! JAVASET()
   set cindent
   set textwidth=0
   set nowrap
+  nnoremap <buffer> <F8> :!javac %<cr>
   nnoremap <buffer> <F9> :!javac %<cr>:!clear;java %< %<cr>
-  nnoremap <C-c> ^i// <esc>
 endfunction
 
 " vim scripts
@@ -151,7 +166,6 @@ function! VIMSET()
   set softtabstop=2
   set shiftwidth=2
   set comments+=b:\"
-  nnoremap <C-c> ^i" <esc>
 endfunction
 
 " Makefile
@@ -175,7 +189,6 @@ function! PYSET()
   set textwidth=0
   set nowrap
   nnoremap <buffer> <F9> :exec '!clear;python' shellescape(@%, 1)<cr>
-  nnoremap <C-c> ^i# <esc>
   " Docstring should be highlighted as comment
   syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?"""+ end=+"""+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
   syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?'''+ end=+'''+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
@@ -201,7 +214,6 @@ function! RUBYSET()
 
   nnoremap <buffer> <F9> :exec '!clear;ruby' shellescape(@%, 1)<cr>
   nnoremap <buffer> <F8> :exec '!clear;rspec' shellescape(@%, 1)<cr>
-  nnoremap <C-c> ^i# <esc>
 endfunction
 
 " SQL
