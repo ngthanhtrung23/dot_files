@@ -17,6 +17,7 @@ cp profile ~/.profile
 cp screenrc ~/.screenrc
 cp vimrc ~/.vimrc
 cp gitconfig ~/.gitconfig
+cp codeforces.sh ~/codeforces.sh
 
 # Install Vundle for Vim
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim

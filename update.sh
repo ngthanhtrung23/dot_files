@@ -11,3 +11,4 @@ cp ~/.profile profile
 cp ~/.screenrc screenrc
 cp ~/.vimrc vimrc
 cp ~/.gitconfig gitconfig
+cp ~/codeforces.sh codeforces.sh

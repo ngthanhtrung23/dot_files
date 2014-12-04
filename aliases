@@ -4,10 +4,17 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias -- -="cd -"
+
+# Show where I'm copying
+alias cp="cp -v"
+alias mv="mv -v"
+
+# Personal stuff
 alias proj="cd ~/Code/Projects"
 alias pp="cd ~/Code/PP"
 alias PP="cd ~/Code/PP"
-alias cf="cd ~/Code/ACM/Codeforces; rm ?; rm ?.cpp"
+alias cf="~/codeforces.sh;cd ~/Code/ACM/Codeforces"
+alias cfvim="cp ~/.vimrc.backup ~/.vimrc"
 alias g++="g++-4.9"
 
 # Shortcuts
