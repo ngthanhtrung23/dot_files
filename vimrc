@@ -219,14 +219,12 @@ endfunction
 " SQL
 function! SQLSET()
   syn keyword sqlStatement use describe
-  nnoremap <C-c> ^i-- <esc>
   nnoremap <buffer> <F9> :!clear;mysql -u root -p test < %<cr>
 endfunction
 
 " BASH
 function! BASHSET()
   syn keyword shStatement mkdir cp
-  nnoremap <C-c> ^i# <esc>
   nnoremap <buffer> <F9> :!clear;./%<cr>
 endfunction
 

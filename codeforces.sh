@@ -1,4 +1,6 @@
 #!/bin/bash
+# Change working directory
+cd ~/Code/ACM/Codeforces
 
 # Remove all files
 mv template.cpp ../template.cpp
