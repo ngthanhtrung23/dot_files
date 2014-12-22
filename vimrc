@@ -11,19 +11,19 @@ Plugin 'gmarik/Vundle.vim'
 
 " My plugins
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-" Bundle 'Lokaltog/vim-easymotion'
-Bundle 'scrooloose/syntastic'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
-"Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-surround'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'airblade/vim-gitgutter'
-"Bundle 'tpope/vim-fugitive'
-Bundle 'mileszs/ack.vim'
-Bundle 'vsushkov/nerdtree-ack'
+Bundle 'tpope/vim-fugitive'
+"Bundle 'mileszs/ack.vim'
+"Bundle 'vsushkov/nerdtree-ack'
 Bundle 'ngthanhtrung23/vim-markdown'
 Bundle 'ngthanhtrung23/vim-comment'
-" Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 
 call vundle#end()
 filetype plugin indent on
