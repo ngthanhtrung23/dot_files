@@ -144,8 +144,8 @@ function! CPPSET()
   set cindent
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>:!clear;./%<<cr>
-  nnoremap <buffer> <F8> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>
+  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 -O2 % -o %< -std=c++11 -I ./<cr>:!clear;./%<<cr>
+  nnoremap <buffer> <F8> :w<cr>:!g++-4.9 -O2 % -o %< -std=c++11 -I ./<cr>
 endfunction
 
 " Java
@@ -225,7 +225,7 @@ endfunction
 " BASH
 function! BASHSET()
   syn keyword shStatement mkdir cp
-  nnoremap <buffer> <F9> :!clear;./%<cr>
+  nnoremap <buffer> <F9> :!clear;chmod +x ./%;./%<cr>
 endfunction
 
 " Autocommands for all languages:

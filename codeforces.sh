@@ -2,6 +2,9 @@
 # Change working directory
 cd ~/Code/ACM/Codeforces
 
+# Copy C++ template file
+cp ~/Code/Projects/ACM_Notebook/template.h template.cpp
+
 # Remove all files
 mv template.cpp ../template.cpp
 rm -rf *
