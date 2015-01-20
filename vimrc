@@ -12,7 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 " My plugins
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-surround'
 Bundle 'nanotech/jellybeans.vim'
@@ -144,8 +144,8 @@ function! CPPSET()
   set cindent
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 -O2 % -o %< -std=c++11 -I ./<cr>:!clear;./%<<cr>
-  nnoremap <buffer> <F8> :w<cr>:!g++-4.9 -O2 % -o %< -std=c++11 -I ./<cr>
+  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>:!clear;./%<<cr>
+  nnoremap <buffer> <F8> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>
 endfunction
 
 " Java
@@ -154,8 +154,8 @@ function! JAVASET()
   set cindent
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F8> :!javac %<cr>
-  nnoremap <buffer> <F9> :!javac %<cr>:!clear;java %< %<cr>
+  nnoremap <buffer> <F8> :w<cr>:!javac %<cr>
+  nnoremap <buffer> <F9> :w<cr>:!javac %<cr>:!clear;java %< %<cr>
 endfunction
 
 " vim scripts
@@ -188,7 +188,7 @@ endfunction
 function! PYSET()
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :exec '!clear;python' shellescape(@%, 1)<cr>
+  nnoremap <buffer> <F9> :w<cr>:exec '!clear;python' shellescape(@%, 1)<cr>
   " Docstring should be highlighted as comment
   syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?"""+ end=+"""+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
   syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?'''+ end=+'''+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
@@ -212,8 +212,8 @@ function! RUBYSET()
   syn keyword rubyRailsTestMethod feature scenario before after 
   hi link rubyRailsTestMethod Function
 
-  nnoremap <buffer> <F9> :exec '!clear;ruby' shellescape(@%, 1)<cr>
-  nnoremap <buffer> <F8> :exec '!clear;rspec' shellescape(@%, 1)<cr>
+  nnoremap <buffer> <F9> :w<cr>:exec '!clear;ruby' shellescape(@%, 1)<cr>
+  nnoremap <buffer> <F8> :w<cr>:exec '!clear;rspec' shellescape(@%, 1)<cr>
 endfunction
 
 " SQL
@@ -225,7 +225,7 @@ endfunction
 " BASH
 function! BASHSET()
   syn keyword shStatement mkdir cp
-  nnoremap <buffer> <F9> :!clear;chmod +x ./%;./%<cr>
+  nnoremap <buffer> <F9> :!clear;./%<cr>
 endfunction
 
 " Autocommands for all languages:
