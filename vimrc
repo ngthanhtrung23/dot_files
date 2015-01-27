@@ -11,6 +11,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " My plugins
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'Yggdroot/indentLine'
 "Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
