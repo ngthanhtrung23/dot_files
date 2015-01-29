@@ -41,6 +41,9 @@ set t_Co=256
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+" indentLine
+let g:indentLine_color_term = 237
+let g:indentLine_char = '┆'
 
 " Close all open buffers on entering a window if the only
 " buffer that's left is the NERDTree buffer
