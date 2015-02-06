@@ -34,6 +34,7 @@ filetype plugin indent on
 " Syntastic
 let g:syntastic_cpp_compiler = 'g++-4.9'
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
+let g:syntastic_disabled_filetypes=['markdown'] " Disable for markdown files
 " powerline
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 set laststatus=2
