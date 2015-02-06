@@ -41,6 +41,8 @@ set t_Co=256
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+let NERDTreeIgnore = ['\.pyc$', '\.class$']
+
 " indentLine
 let g:indentLine_color_term = 237
 let g:indentLine_char = '┆'
