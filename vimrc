@@ -152,7 +152,7 @@ function! CPPSET()
   set cindent
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>:!clear;./%<<cr>
+  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>:./%<<cr>
   nnoremap <buffer> <F8> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>
 endfunction
 
@@ -163,7 +163,7 @@ function! JAVASET()
   set textwidth=0
   set nowrap
   nnoremap <buffer> <F8> :w<cr>:!javac %<cr>
-  nnoremap <buffer> <F9> :w<cr>:!javac %<cr>:!clear;java %< %<cr>
+  nnoremap <buffer> <F9> :w<cr>:!javac %<cr>:!java %< %<cr>
 endfunction
 
 " vim scripts
@@ -173,7 +173,6 @@ function! VIMSET()
   set tabstop=2
   set softtabstop=2
   set shiftwidth=2
-  set comments+=b:\"
 endfunction
 
 " Makefile
@@ -230,12 +229,6 @@ function! SQLSET()
   nnoremap <buffer> <F9> :!clear;mysql -u root -p test < %<cr>
 endfunction
 
-" BASH
-function! BASHSET()
-  syn keyword shStatement mkdir cp
-  nnoremap <buffer> <F9> :!clear;./%<cr>
-endfunction
-
 " Autocommands for all languages:
 autocmd FileType vim    call VIMSET()
 autocmd FileType c      call CSET()
@@ -250,6 +243,5 @@ autocmd FileType php    call HTMLSET()
 autocmd FileType python call PYSET()
 autocmd FileType ruby   call RUBYSET()
 autocmd FileType sql    call SQLSET()
-autocmd FileType sh     call BASHSET()
 " }}}
 
