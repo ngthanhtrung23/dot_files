@@ -1,6 +1,4 @@
 #!/bin/bash
-# Store vimrc
-cp ~/.vimrc ~/.vimrc.backup
 
 # Change working directory
 cd ~/Code/ACM/Codeforces

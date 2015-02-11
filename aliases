@@ -8,13 +8,14 @@ alias -- -="cd -"
 # Show where I'm copying
 alias cp="cp -v"
 alias mv="mv -v"
+alias rm="rm -v"
 
 # Personal stuff
 alias proj="cd ~/Code/Projects"
 alias pp="cd ~/Code/PP"
 alias PP="cd ~/Code/PP"
 alias cf="~/codeforces.sh;cd ~/Code/ACM/Codeforces"
-alias cfvim="cp ~/.vimrc.backup ~/.vimrc"
+alias cfvim="cp ~/Code/Projects/dot_files/vimrc ~/.vimrc"
 alias g++="g++-4.9"
 
 # Shortcuts
