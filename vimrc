@@ -152,7 +152,7 @@ function! CPPSET()
   set cindent
   set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>:./%<<cr>
+  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>:!./%<<cr>
   nnoremap <buffer> <F8> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>
 endfunction
 
