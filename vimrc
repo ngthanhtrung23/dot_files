@@ -26,6 +26,7 @@ Bundle 'ngthanhtrung23/vim-markdown'
 Bundle 'ngthanhtrung23/vim-comment'
 Bundle 'ngthanhtrung23/vim-extended-bash'
 "Bundle 'Valloric/YouCompleteMe'
+Bundle 'junegunn/vim-easy-align'
 Bundle 'Igorjan94/codeforces.vim'
 
 call vundle#end()
