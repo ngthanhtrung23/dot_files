@@ -73,12 +73,7 @@ let g:CodeForcesFriends = 1
 let g:CodeForcesContestId = 518
 let g:CodeForcesCountOfSubmits = 10
 let g:CodeForcesUsername = 'I_love_Hoang_Yen'
-noremap <leader>cfr <ESC>:CodeForcesSetRound
-noremap <leader>cfs <ESC>:CodeForcesStandings<CR>
-noremap <leader>cff <ESC>:CodeForcesFriendsSet<CR>
-noremap <leader>cfS <ESC>:CodeForcesSubmission<CR>
-noremap <leader>cfu <ESC>:CodeForcesUnofficial<CR>
-noremap <leader>cfl <ESC>:CodeForcesLoadTask
+let mapleader = ","
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -109,10 +104,9 @@ set shiftround    " when shifting non-aligned set of lines, align them to next t
 set autoread      " auto re-read changes outside vim
 set autowrite     " auto save before make/execute
 set pastetoggle=<F10>
-" The following line is disabled to make powerline work
-" set showcmd
+set showcmd
 set timeout       " adjust timeout for mapped commands
-set timeoutlen=200
+set timeoutlen=1200
 
 set visualbell    " Tell vim to shutup
 set noerrorbells  " Tell vim to shutup!
