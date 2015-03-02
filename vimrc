@@ -26,6 +26,7 @@ Bundle 'ngthanhtrung23/vim-markdown'
 Bundle 'ngthanhtrung23/vim-comment'
 Bundle 'ngthanhtrung23/vim-extended-bash'
 "Bundle 'Valloric/YouCompleteMe'
+Bundle 'Igorjan94/codeforces.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -65,6 +66,19 @@ map <C-p> :CtrlP<CR><F5>
 " jellybeans
 set background=dark
 color jellybeans  " set background=dark for other machine, but use jellybeans in my computer
+" Codeforces
+let g:CodeForcesDomain = 'com'
+let g:CodeForcesShowUnofficial = 1
+let g:CodeForcesFriends = 1
+let g:CodeForcesContestId = 518
+let g:CodeForcesCountOfSubmits = 10
+let g:CodeForcesUsername = 'I_love_Hoang_Yen'
+noremap <leader>cfr <ESC>:CodeForcesSetRound
+noremap <leader>cfs <ESC>:CodeForcesStandings<CR>
+noremap <leader>cff <ESC>:CodeForcesFriendsSet<CR>
+noremap <leader>cfS <ESC>:CodeForcesSubmission<CR>
+noremap <leader>cfu <ESC>:CodeForcesUnofficial<CR>
+noremap <leader>cfl <ESC>:CodeForcesLoadTask
 " }}}
 
 " -----------------------------------------------------------------------------
