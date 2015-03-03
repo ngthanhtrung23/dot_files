@@ -13,7 +13,7 @@ rm -rf .*.swp
 mv ../template.cpp template.cpp
 
 # Change to minimized vimrc
-cp ~/.vimrc.min ~/.vimrc
+# cp ~/.vimrc.min ~/.vimrc
 
 # Make input / output empty
 rm -f input.txt

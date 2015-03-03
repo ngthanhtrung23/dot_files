@@ -75,6 +75,8 @@ let g:CodeForcesContestId = 518
 let g:CodeForcesCountOfSubmits = 10
 let g:CodeForcesUsername = 'I_love_Hoang_Yen'
 let mapleader = ","
+let g:CodeForcesXUser = 'xxx'
+let g:CodeForcesToken = 'xxx'
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -239,6 +241,7 @@ function! SQLSET()
 endfunction
 
 " Autocommands for all languages:
+autocmd BufNewFile,BufReadPost *.py2 set filetype=python
 autocmd FileType vim    call VIMSET()
 autocmd FileType c      call CSET()
 autocmd FileType C      call CPPSET()
