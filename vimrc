@@ -10,7 +10,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " My plugins
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'bling/vim-airline'
 Bundle 'Yggdroot/indentLine'
 "Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
@@ -38,8 +38,6 @@ filetype plugin indent on
 let g:syntastic_cpp_compiler = 'g++-4.9'
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 let g:syntastic_disabled_filetypes=['markdown'] " Disable for markdown files
-" powerline
-set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 set laststatus=2
 set t_Co=256
 " nerdtree

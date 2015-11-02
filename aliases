@@ -14,7 +14,7 @@ alias rm="rm -v"
 alias proj="cd ~/Code/Projects"
 alias pp="cd ~/Code/PP"
 alias PP="cd ~/Code/PP"
-alias cf="~/codeforces.sh;cd ~/Code/ACM/Codeforces"
+alias cf="cd ~/Code/ACM/Codeforces"
 alias cfvim="cp ~/Code/Projects/dot_files/vimrc ~/.vimrc"
 alias g++="g++-4.9"
 
