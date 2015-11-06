@@ -20,6 +20,8 @@ Bundle 'nanotech/jellybeans.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-fugitive'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'hdima/python-syntax'
 "Bundle 'mileszs/ack.vim'
 "Bundle 'vsushkov/nerdtree-ack'
 Bundle 'ngthanhtrung23/vim-markdown'
@@ -27,7 +29,6 @@ Bundle 'ngthanhtrung23/vim-comment'
 Bundle 'ngthanhtrung23/vim-extended-bash'
 "Bundle 'Valloric/YouCompleteMe'
 Bundle 'junegunn/vim-easy-align'
-Bundle 'Igorjan94/codeforces.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -65,16 +66,6 @@ map <C-p> :CtrlP<CR><F5>
 " jellybeans
 set background=dark
 color jellybeans  " set background=dark for other machine, but use jellybeans in my computer
-" Codeforces
-let g:CodeForcesDomain = 'com'
-let g:CodeForcesShowUnofficial = 1
-let g:CodeForcesFriends = 1
-let g:CodeForcesContestId = 518
-let g:CodeForcesCountOfSubmits = 10
-let g:CodeForcesUsername = 'I_love_Hoang_Yen'
-let mapleader = ","
-let g:CodeForcesXUser = 'xxx'
-let g:CodeForcesToken = 'xxx'
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -221,8 +212,8 @@ function! RUBYSET()
   set expandtab
 
   " I prefer using same highlight for Ruby string and Ruby symbol
-  hi clear rubySymbol
-  hi link  rubySymbol String
+"  hi clear rubySymbol
+"  hi link  rubySymbol String
 
   " Some simple highlight for Capybara
   syn keyword rubyRailsTestMethod feature scenario before after 
@@ -254,4 +245,3 @@ autocmd FileType python call PYSET()
 autocmd FileType ruby   call RUBYSET()
 autocmd FileType sql    call SQLSET()
 " }}}
-
