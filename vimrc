@@ -36,6 +36,12 @@ filetype plugin indent on
 " }}}
 
 " Plugin settings: {{{
+" vim-airlien
+function! AirlineInit()
+  let g:airline_section_a = airline#section#create(['mode'])
+  let g:airline_section_b = airline#section#create([''])
+endfunction
+autocmd VimEnter * call AirlineInit()
 " ack.vim
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
