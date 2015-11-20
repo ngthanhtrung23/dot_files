@@ -27,14 +27,22 @@ Bundle 'hdima/python-syntax'
 Bundle 'ngthanhtrung23/vim-markdown'
 Bundle 'ngthanhtrung23/vim-comment'
 Bundle 'ngthanhtrung23/vim-extended-bash'
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'junegunn/vim-easy-align'
+Bundle 'mileszs/ack.vim'
 
 call vundle#end()
 filetype plugin indent on
 " }}}
 
 " Plugin settings: {{{
+" ack.vim
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" YouCompleteMe
+let mapleader=","
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 " Syntastic
 let g:syntastic_cpp_compiler = 'g++-4.9'
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
@@ -81,13 +89,19 @@ set hlsearch      " highlight search result
 " y and d put stuff into system clipboard (so that other apps can see it)
 set clipboard=unnamed,unnamedplus
 set mouse=a       " enable mouse. At least this should work for iTerm
+set textwidth=0
+" Open new split to right / bottom
+set splitbelow
+set splitright
 " }}}
 
 " Shortcuts
 
 " Tab related stuffs: {{{
+set tabstop=4
 set shiftwidth=4  " tab size = 4
-set expandtab
+set noexpandtab
+set autoindent
 set softtabstop=4
 set shiftround    " when shifting non-aligned set of lines, align them to next tabstop
 " }}}
@@ -117,14 +131,14 @@ set smartcase     " use case sensitive if I use uppercase
 
 " -----------------------------------------------------------------------------
 " <Tab> at the end of a word should attempt to complete it using tokens from the current file: {{{
-function! MyTabCompletion()
-  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-    return "\<C-P>"
-  else
-    return "\<Tab>"
-  endif
-endfunction
-inoremap <Tab> <C-R>=MyTabCompletion()<CR>
+"function! MyTabCompletion()
+"  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+"    return "\<C-P>"
+"  else
+"    return "\<Tab>"
+"  endif
+"endfunction
+"inoremap <Tab> <C-R>=MyTabCompletion()<CR>
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -135,7 +149,6 @@ inoremap <Tab> <C-R>=MyTabCompletion()<CR>
 " LaTeX
 function! TEXSET()
   set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ pdfcslatex\ -file-line-error-style\ %;fi;fi
-  set textwidth=0
   set nowrap
 endfunction
 
@@ -143,24 +156,21 @@ endfunction
 function! CSET()
   set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ gcc\ -O2\ -g\ -Wall\ -Wextra\ -o%.bin\ %\ -lm;fi;fi
   set cindent
-  set textwidth=0
   set nowrap
 endfunction
 
 function! CPPSET()
   set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ g++\ -std=gnu++0x\ -O2\ -g\ -Wall\ -Wextra\ -o\ %<\ %;fi;fi
   set cindent
-  set textwidth=0
   set nowrap
-  nnoremap <buffer> <F9> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>:!./%<<cr>
-  nnoremap <buffer> <F8> :w<cr>:!g++-4.9 % -o %< -std=c++11 -I ./<cr>
+  nnoremap <buffer> <F9> :w<cr>:!g++ -O2 % -o %< -std=c++11 -I ./<cr>:!./%<<cr>
+  nnoremap <buffer> <F8> :w<cr>:!g++ -O2 % -o %< -std=c++11 -I ./<cr>
 endfunction
 
 " Java
 function! JAVASET()
   set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ javac\ -g\ %;fi;fi
   set cindent
-  set textwidth=0
   set nowrap
   nnoremap <buffer> <F8> :w<cr>:!javac %<cr>
   nnoremap <buffer> <F9> :w<cr>:!javac %<cr>:!java %< %<cr>
@@ -168,7 +178,6 @@ endfunction
 
 " vim scripts
 function! VIMSET()
-  set textwidth=0
   set nowrap
   set tabstop=2
   set softtabstop=2
@@ -177,7 +186,6 @@ endfunction
 
 " Makefile
 function! MAKEFILESET()
-  set textwidth=0
   set nowrap
   " in a Makefile we need to use <Tab> to actually produce tabs
   set noexpandtab
@@ -187,14 +195,22 @@ endfunction
 
 " HTML/PHP
 function! HTMLSET()
-  set textwidth=0
+  set tabstop=2
+  set softtabstop=2
+  set autoindent
+  set noexpandtab
+  set shiftwidth=2
   set nowrap
 endfunction
 
 " Python
 function! PYSET()
-  set textwidth=0
   set nowrap
+
+  set autoindent
+  set noexpandtab
+  set shiftwidth=4
+  set tabstop=4
   nnoremap <buffer> <F9> :w<cr>:exec '!clear;python' shellescape(@%, 1)<cr>
   " Docstring should be highlighted as comment
   syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?"""+ end=+"""+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
