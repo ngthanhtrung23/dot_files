@@ -7,15 +7,15 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim' 
+Plugin 'gmarik/Vundle.vim'
 " My plugins
 Bundle 'bling/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 "Bundle 'Yggdroot/indentLine'
 Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-surround'
 Bundle 'nanotech/jellybeans.vim'
-Bundle 'kien/ctrlp.vim'
+Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-fugitive'
 Bundle 'derekwyatt/vim-scala'
@@ -28,12 +28,21 @@ Bundle 'junegunn/vim-easy-align'
 Bundle 'mileszs/ack.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'tpope/vim-repeat'
+Bundle 'yegappan/mru'
+Bundle 'embear/vim-localvimrc'
+Bundle 'leafgarland/typescript-vim'
 
 call vundle#end()
 filetype plugin indent on
 " }}}
 
 " Plugin settings: {{{
+" netrw
+" Hide .swp, .pyc, ENV/, .git/, *.map
+let g:netrw_list_hide= '.*\.swp$,.*\.pyc,ENV,.git/,.*\.map'
+" Override netrw settings to show line numbers
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+
 " vim-airlien
 function! AirlineInit()
 	let g:airline_mode_map = {
@@ -57,6 +66,8 @@ function! AirlineInit()
 	let g:airline_section_x = airline#section#create_right([''])
 	let g:airline_section_y = airline#section#create_right([''])
 	let g:airline_section_z = airline#section#create_right(['%l %c'])
+	AirlineToggleWhitespace
+	AirlineTheme jellybeans
 endfunction
 autocmd VimEnter * call AirlineInit()
 " ack.vim
@@ -90,27 +101,11 @@ let g:syntastic_python_flake8_args = "--ignore=W191,W293,E101,E126,E127,E128,E22
 
 set laststatus=2
 set t_Co=256
-" nerdtree
-map <C-n> :NERDTreeToggle<CR>
-autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-let NERDTreeIgnore = ['\.pyc$', '\.class$',
-			\'ContestAppletProd.jnlp', 'moj_4.18.zip', 'moj_4.18']
 
 " indentLine
 let g:indentLine_color_term = 237
 let g:indentLine_char = '┆'
 
-" Close all open buffers on entering a window if the only
-" buffer that's left is the NERDTree buffer
-function! s:CloseIfOnlyNerdTreeLeft()
-	if exists("t:NERDTreeBufName")
-		if bufwinnr(t:NERDTreeBufName) != -1
-			if winnr("$") == 1
-				q
-			endif
-		endif
-	endif
-endfunction
 " ctrlp
 map <C-p> :CtrlP<CR><F5>
 let g:ctrlp_custom_ignore = {
@@ -118,19 +113,29 @@ let g:ctrlp_custom_ignore = {
 	\ 'file': '\v\.(pyc|swp)$',
 	\ 'link': '',
 	\ }
+" ctrlp should ignore things in .gitignore
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
 " jellybeans
 set background=dark
 color jellybeans	" set background=dark for other machine, but use jellybeans in my computer
 " }}}
 
+" vim-localvimrc
+let g:localvimrc_whitelist='/home/rr/Code/\(rr-heart\|angular2-quickstart\)'
+
 " -----------------------------------------------------------------------------
 " Stuffs that should be set by default: {{{
 syntax on
+set softtabstop=4
+set tabstop=4
+set expandtab
+set shiftwidth=4
 set nocompatible	" use new features whenever they are available
 set bs=2					" backspace should work as we expect
 set autoindent
 set history=50		" remember last 50 commands
-set ruler				 " show cursor position in bottom line
+set ruler				  " show cursor position in bottom line
 set nu						" show line number
 set hlsearch			" highlight search result
 " y and d put stuff into system clipboard (so that other apps can see it)
@@ -149,12 +154,12 @@ set foldlevel=20
 " Shortcuts
 
 " Tab related stuffs: {{{
-set tabstop=4
-set shiftwidth=4	" tab size = 4
-set noexpandtab
-set autoindent
-set softtabstop=4
-set shiftround		" when shifting non-aligned set of lines, align them to next tabstop
+"set tabstop=4
+"set shiftwidth=4	" tab size = 4
+"set noexpandtab
+"set autoindent
+"set softtabstop=4
+"set shiftround		" when shifting non-aligned set of lines, align them to next tabstop
 " }}}
 
 " Misc {{{
@@ -256,6 +261,9 @@ endfunction
 
 " Python
 function! PYSET()
+	if exists('g:no_pyset')
+		return
+	endif
 	set nowrap
 
 	set autoindent
@@ -283,20 +291,11 @@ function! RUBYSET()
 "	hi link	rubySymbol String
 
 	" Some simple highlight for Capybara
-	syn keyword rubyRailsTestMethod feature scenario before after 
+	syn keyword rubyRailsTestMethod feature scenario before after
 	hi link rubyRailsTestMethod Function
 
 	nnoremap <buffer> <F9> :w<cr>:exec '!clear;ruby' shellescape(@%, 1)<cr>
 	nnoremap <buffer> <F8> :w<cr>:exec '!clear;rspec' shellescape(@%, 1)<cr>
-endfunction
-
-function! JSSET()
-	set noexpandtab!
-	set expandtab
-	set tabstop=2
-	set softtabstop=2
-	set shiftwidth=2
-
 endfunction
 
 " Beautify JSON
@@ -323,12 +322,12 @@ autocmd FileType php        call HTMLSET()
 autocmd FileType python     call PYSET()
 autocmd FileType ruby       call RUBYSET()
 autocmd FileType sql        call SQLSET()
-autocmd FileType javascript call JSSET()
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
 " }}}
 
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . '/' <CR>
 nnoremap <leader>vs :vs <C-R>=expand("%:p:h") . '/' <CR>
+nnoremap <C-N> :Ex<cr>
 
 " Disable ~ when inside tmux, as Ctrl + PageUp/Down are translated to 5~
 if &term =~ '^screen'
@@ -337,6 +336,9 @@ endif
 
 " Show filename in tmux panel
 autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand('%'))
+autocmd VimLeave * call system("tmux rename-window bash")
 
 " Hack to make bg black with jellybeans
 hi Normal ctermbg=none
+hi LineNr ctermbg=none
+hi NonText ctermbg=none
