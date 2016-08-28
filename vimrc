@@ -28,7 +28,6 @@ Bundle 'junegunn/vim-easy-align'
 Bundle 'mileszs/ack.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'tpope/vim-repeat'
-Bundle 'yegappan/mru'
 Bundle 'embear/vim-localvimrc'
 Bundle 'leafgarland/typescript-vim'
 
@@ -71,7 +70,7 @@ function! AirlineInit()
 endfunction
 autocmd VimEnter * call AirlineInit()
 " ack.vim
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ackprg = 'ag --nogroup --nocolor --column --ignore ENV/'
 let g:ackhighlight = 1
 cabbrev Ack Ack!
 
@@ -108,6 +107,7 @@ let g:indentLine_char = '┆'
 
 " ctrlp
 map <C-p> :CtrlP<CR><F5>
+map <leader>p :CtrlPMRU<CR><F5>
 let g:ctrlp_custom_ignore = {
 	\ 'dir': '\v[\/]\.(git|hg|svn)$',
 	\ 'file': '\v\.(pyc|swp)$',
@@ -122,7 +122,7 @@ color jellybeans	" set background=dark for other machine, but use jellybeans in 
 " }}}
 
 " vim-localvimrc
-let g:localvimrc_whitelist='/home/rr/Code/\(rr-heart\|angular2-quickstart\)'
+let g:localvimrc_whitelist='/home/rr/Code/'
 
 " -----------------------------------------------------------------------------
 " Stuffs that should be set by default: {{{
@@ -249,16 +249,6 @@ function! MAKEFILESET()
 	iunmap <Tab>
 endfunction
 
-" HTML/PHP
-function! HTMLSET()
-	set tabstop=2
-	set softtabstop=2
-	set autoindent
-	set noexpandtab
-	set shiftwidth=2
-	set nowrap
-endfunction
-
 " Python
 function! PYSET()
 	if exists('g:no_pyset')
@@ -317,8 +307,6 @@ autocmd FileType cpp        call CPPSET()
 autocmd FileType java       call JAVASET()
 autocmd FileType tex        call TEXSET()
 autocmd FileType make       call MAKEFILESET()
-autocmd FileType html       call HTMLSET()
-autocmd FileType php        call HTMLSET()
 autocmd FileType python     call PYSET()
 autocmd FileType ruby       call RUBYSET()
 autocmd FileType sql        call SQLSET()

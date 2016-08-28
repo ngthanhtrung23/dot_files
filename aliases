@@ -1,83 +1,82 @@
-# Easier navigation: .., ..., ...., ....., ~ and -
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias -- -="cd -"
+#!/bin/bash
 
 # Show where I'm copying
 alias cp="cp -v"
 alias mv="mv -v"
 alias rm="rm -v"
 
-# Personal stuff
-alias proj="cd ~/Code/Projects"
-alias pp="cd ~/Code/PP"
-alias PP="cd ~/Code/PP"
-alias cf="cd ~/Code/ACM/Codeforces"
-alias cfvim="cp ~/Code/Projects/dot_files/vimrc ~/.vimrc"
-alias g++="g++-4.9"
-
 # Shortcuts
 alias g="git"
+alias backupvim="cp ~/.vimrc ~/.vimrc.full; cp ~/.vimrc ~/.vimrc.full.backup"
+alias incstack="ulimit -s unlimited"
+alias redis-cli="~/Tools/redis/redis-3.0.6/src/redis-cli"
 
-# Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-	colorflag="--color"
-else # OS X `ls`
-	colorflag="-G"
-fi
+# Jump to directories
+alias gg="cd /home/rr/Code/Garena; cp ~/.vimrc.full ~/.vimrc"
+alias cf="cd /home/rr/Code/CF" #; cp ~/.vimrc.min ~/.vimrc"
+alias tc="cd /home/rr/Code/Topcoder; cp ~/.vimrc.full ~/.vimrc"
+alias src="source ENV/bin/activate"
+alias note="cd /home/rr/Code/ACM_Notebook_new; cp ~/.vimrc.full ~/.vimrc"
 
-# List all files colorized in long format
-alias l="ls -lF ${colorflag}"
+# Tmux
+alias tm="cp ~/.vimrc.full ~/.vimrc; tmux -2"
+alias tmkill="tmux kill-session"
 
-# List all files colorized in long format, including dot files
-alias la="ls -laF ${colorflag}"
+# Flush DNS, so that /etc/hosts is reloaded
+alias flushdns="sudo /etc/init.d/nscd restart; sudo /etc/init.d/dns-clean start; sudo service network-manager restart"
+# Reload audio
+alias audio="pulseaudio -k && sudo alsa force-reload"
 
-# Always use color output for `ls`
-alias ls="command ls ${colorflag}"
-export LSCOLORS='gxBxhxDxfxhxhxhxhxcxcx'
+# Garena specific stuff
+alias shopeelivedb="mysql --host=122.11.129.93 -u generalquery -P 6606 -pyequnfeng1978!@#"
+alias shopeetestdbcore="mysql --host=122.11.129.31 -u shopee_backend -pFDtjk9EV88EjXUhL"
+alias shopeestagingdb="mysql --host=203.116.180.209 -P 6606 -u generalquery -pyequnfeng1978!@#"
+alias shopeestagingdbcore="mysql --host=203.117.172.182 -P 6606 -u shopee_admin -p17wDAEANqyNQbu9p0uRDufLzDGMHai"
+alias sshliveapi1="ssh ld-nguyentt@122.11.129.5"
+alias sshliveapi2="ssh ld-nguyentt@122.11.129.9"
+alias sshliveapi3="ssh ld-nguyentt@203.117.172.187"
+alias sshliveapi4="ssh ld-nguyentt@122.11.129.38"
+alias sshtaskqueue="ssh ld-nguyentt@203.117.172.116"
+alias webapi="src; sudo python web_api_manage.py runserver localhost:8001"
+alias fe="src; sudo python manage.py runserver 10.2.202.14:80"
+alias be="src; sudo python manage.py runserver localhost:80"
 
-# Enable aliases to be sudo’ed
-alias sudo='sudo '
+function update_release {
+    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD);
+    echo "current git branch: $CURRENT_BRANCH"
+    g stash;
+    g co master;
+    g pull origin master;
+    g co release;
+    g pull origin release;
+    g merge master;
+    g push origin release;
+    g co $CURRENT_BRANCH;
+    g stash pop;
+}
+alias release=update_release
+# live IPs:
+# Backend:
+# 122.11.129.30
+# 122.11.129.4
+#
+# Webapi
+# 122.11.129.5
+# 122.11.129.9
+# 203.117.172.187
+# 122.11.129.38
 
-# IP addresses
-alias ip="dig +short "
-alias localip="ipconfig getifaddr en0"
-alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+alias proto='protoc -I=bridge/protofile/ --python_out=bridge/protobuf/pb/ bridge/protofile/beeshop_db.proto; protoc -I=bridge/protofile/ --python_out=bridge/protobuf/pb/ bridge/protofile/beeshop_cmd.proto;'
+alias bproto='protoc -I=bridge/protofile/ --python_out=bridge/protobuf/pb/ bridge/protofile/beeshop_db.proto; protoc -I=bridge/protofile/ --python_out=bridge/protobuf/pb/ bridge/protofile/beeshop_cmd.proto; protoc -I=bridge/protofile/ --python_out=bridge/protobuf/pb/ bridge/protofile/beeshop_mq.proto; protoc -I=bridge/protofile/ --python_out=bridge/protobuf/pb/ bridge/protofile/beeshop_search.proto;'
+kill80() {
+	sudo lsof -i :80 | grep 'apache2' | awk '{ print $2 }' | xargs sudo kill -9
+	sudo lsof -i :80 | grep 'nginx' | awk '{ print $2 }' | xargs sudo kill -9
+}
 
-# Flush Directory Service cache
-alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+# Distributed GCJ stuff
+alias dcj='/home/rr/Code/CF/DCJ/dcj_linux/dcj.sh'
+alias dcc='function _dcc() { cp "$1/$1$2.h" "$1/$1.h"; dcj build --source="$1/$1.cpp" }; _dcc'
+alias dcr='function _dcr() { dcj run --executable="$1/$1" --nodes=$2 --output=all }; _dcr'
+# end of Distributed GCJ
 
-# Clean up LaunchServices to remove duplicates in the “Open With” menu
-alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
-
-# Trim new lines and copy to clipboard
-alias c="tr -d '\n' | pbcopy"
-
-# Empty the Trash on all mounted volumes and the main HDD
-# Also, clear Apple’s System Logs to improve shell startup speed
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
-
-# Show/hide hidden files in Finder
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# Merge PDF files
-# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
-alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
-
-# Intuitive map function
-# For example, to list all directories that contain a certain file:
-# find . -name .gitattributes | map dirname
-alias map="xargs -n1"
-
-# Make Grunt print stack traces by default
-command -v grunt > /dev/null && alias grunt="grunt --stack"
-
-# Kill all the tabs in Chrome to free up memory
-# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
-alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
-
-# Lock the screen (when going AFK)
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+alias ']'='xdg-open'
