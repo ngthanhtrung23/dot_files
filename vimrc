@@ -8,6 +8,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
+Plugin 'Valloric/MatchTagAlways'
 " My plugins
 Bundle 'bling/vim-airline'
 Bundle 'vim-airline/vim-airline-themes'
@@ -18,12 +19,11 @@ Bundle 'nanotech/jellybeans.vim'
 Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-fugitive'
-Bundle 'derekwyatt/vim-scala'
 Bundle 'hdima/python-syntax'
 Bundle 'ngthanhtrung23/vim-markdown'
 Bundle 'ngthanhtrung23/vim-comment'
 Bundle 'ngthanhtrung23/vim-extended-bash'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'mileszs/ack.vim'
 Bundle 'christoomey/vim-tmux-navigator'
@@ -36,6 +36,7 @@ filetype plugin indent on
 " }}}
 
 " Plugin settings: {{{
+
 " netrw
 " Hide .swp, .pyc, ENV/, .git/, *.map
 let g:netrw_list_hide= '.*\.swp$,.*\.pyc,ENV,.git/,.*\.map'
@@ -122,7 +123,7 @@ color jellybeans	" set background=dark for other machine, but use jellybeans in 
 " }}}
 
 " vim-localvimrc
-let g:localvimrc_whitelist='/home/rr/Code/'
+let g:localvimrc_whitelist='/Users/trungnt/Code/'
 
 " -----------------------------------------------------------------------------
 " Stuffs that should be set by default: {{{
@@ -220,7 +221,7 @@ function! CPPSET()
 	set cindent
 	set nowrap
 	nnoremap <buffer> <F9> :w<cr>:!g++ -O2 % -o %< -std=c++11 -I ./<cr>:!./%<<cr>
-	nnoremap <buffer> <F8> :w<cr>:!g++ -O2 % -o %< -std=c++11 -I ./<cr>
+	nnoremap <buffer> <F8> :w<cr>:!g++ -Wall -Wextra -Wshadow -O2 % -o %< -std=c++11 -I ./<cr>
 endfunction
 
 " Java
@@ -257,7 +258,7 @@ function! PYSET()
 	set nowrap
 
 	set autoindent
-	set noexpandtab
+	set expandtab
 	set shiftwidth=4
 	set tabstop=4
 	nnoremap <buffer> <F9> :w<cr>:exec '!clear;python' shellescape(@%, 1)<cr>
