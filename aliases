@@ -12,7 +12,6 @@ alias incstack="ulimit -s unlimited"
 alias redis-cli="~/Tools/redis/redis-3.0.6/src/redis-cli"
 
 # Jump to directories
-alias gg="cd /home/rr/Code/Garena; cp ~/.vimrc.full ~/.vimrc"
 alias cf="cd /home/rr/Code/CF" #; cp ~/.vimrc.min ~/.vimrc"
 alias tc="cd /home/rr/Code/Topcoder; cp ~/.vimrc.full ~/.vimrc"
 alias src="source ENV/bin/activate"
@@ -26,20 +25,6 @@ alias tmkill="tmux kill-session"
 alias flushdns="sudo /etc/init.d/nscd restart; sudo /etc/init.d/dns-clean start; sudo service network-manager restart"
 # Reload audio
 alias audio="pulseaudio -k && sudo alsa force-reload"
-
-# Garena specific stuff
-alias shopeelivedb="mysql --host=122.11.129.93 -u generalquery -P 6606 -pyequnfeng1978!@#"
-alias shopeetestdbcore="mysql --host=122.11.129.31 -u shopee_backend -pFDtjk9EV88EjXUhL"
-alias shopeestagingdb="mysql --host=203.116.180.209 -P 6606 -u generalquery -pyequnfeng1978!@#"
-alias shopeestagingdbcore="mysql --host=203.117.172.182 -P 6606 -u shopee_admin -p17wDAEANqyNQbu9p0uRDufLzDGMHai"
-alias sshliveapi1="ssh ld-nguyentt@122.11.129.5"
-alias sshliveapi2="ssh ld-nguyentt@122.11.129.9"
-alias sshliveapi3="ssh ld-nguyentt@203.117.172.187"
-alias sshliveapi4="ssh ld-nguyentt@122.11.129.38"
-alias sshtaskqueue="ssh ld-nguyentt@203.117.172.116"
-alias webapi="src; sudo python web_api_manage.py runserver localhost:8001"
-alias fe="src; sudo python manage.py runserver 10.2.202.14:80"
-alias be="src; sudo python manage.py runserver localhost:80"
 
 function update_release {
     CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD);
