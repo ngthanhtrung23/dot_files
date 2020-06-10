@@ -1,5 +1,4 @@
 [alias]
-
         # View abbreviated SHA, description, and history graph of the latest 20 commits
         l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
@@ -69,7 +68,6 @@
         whitespace = fix
 
 [core]
-
         # Use custom `.gitignore` and `.gitattributes`
         excludesfile = ~/.gitignore
         attributesfile = ~/.gitattributes
@@ -93,70 +91,40 @@
         ui = auto
 
 [color "branch"]
-
         current = yellow reverse
         local = yellow
         remote = green
 
 [color "diff"]
-
         meta = yellow bold
         frag = magenta bold # line info
         old = red # deletions
         new = green # additions
 
 [color "status"]
-
         added = yellow
         changed = green
         untracked = cyan
 
 [diff]
-
         # Detect copies as well as renames
         renames = copies
 
 [help]
-
         # Automatically correct and execute mistyped commands
         autocorrect = 1
 
 [merge]
-
         # Include summaries of merged commits in newly created merge commit messages
         log = true
         tool = vimdiff
 
 [push]
-
         # Use the Git 1.x.x default to avoid errors on machines with old Git
         # installations. To use `simple` instead, add this to your `~/.extra` file:
         # `git config --global push.default simple`. See http://git.io/mMah-w.
         default = matching
 
-# URL shorthands
-
-[url "git@github.com:"]
-
-        insteadOf = "gh:"
-        pushInsteadOf = "github:"
-        pushInsteadOf = "git://github.com/"
-
-[url "git://github.com/"]
-
-        insteadOf = "github:"
-
-[url "git@gist.github.com:"]
-
-        insteadOf = "gst:"
-        pushInsteadOf = "gist:"
-        pushInsteadOf = "git://gist.github.com/"
-
-[url "git://gist.github.com/"]
-
-        insteadOf = "gist:"
 [user]
-	name = Trung
-	email = nguyentt@garena.com
-[url "https://"]
-        insteadOf = git://
+	name = Trung Nguyen
+	email = ngthanhtrung23@gmail.com
