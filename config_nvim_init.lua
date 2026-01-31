@@ -158,6 +158,14 @@ require("lazy").setup({
         capabilities = capabilities,
       })
       -- Python LSP configuration using vim.lsp.config
+      -- Function to find venv
+      local function get_python_path()
+        local venv_path = vim.fn.getcwd() .. '/.venv/bin/python'
+        if vim.fn.filereadable(venv_path) == 1 then
+          return venv_path
+        end
+        return 'python'  -- fallback to system python
+      end
       vim.lsp.config('pyright', {
         cmd = { 'pyright-langserver', '--stdio' },
         filetypes = { 'python' },
@@ -168,7 +176,8 @@ require("lazy").setup({
               typeCheckingMode = "basic",
               autoSearchPaths = true,
               useLibraryCodeForTypes = true,
-            }
+            },
+            pythonPath = get_python_path(),
           }
         }
       })
@@ -194,10 +203,40 @@ require("lazy").setup({
           vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, opts)
           vim.keymap.set('n', ']e', vim.diagnostic.goto_next, opts)
           vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+          vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
         end,
       })
     end,
   },
+  {
+    'stevearc/aerial.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('aerial').setup({
+        backends = { "lsp", "treesitter" },  -- Try LSP first, fallback to treesitter
+        layout = {
+          default_direction = "right",
+          width = 35,
+        },
+        -- Show indentation guides
+        show_guides = true,
+        guides = {
+          mid_item = "├─",
+          last_item = "└─",
+          nested_top = "│ ",
+          whitespace = "  ",
+        },
+        -- Auto-open on attach (optional)
+        on_attach = function(bufnr)
+          -- Toggle with <leader>o
+          vim.keymap.set('n', '<leader>o', '<cmd>AerialToggle<CR>', { buffer = bufnr })
+        end,
+      })
+    end,
+  }
 })
 -- }}}
 
@@ -331,8 +370,6 @@ opt.smartcase = true
 -- Clipboard
 opt.clipboard = "unnamedplus"
 
-opt.foldmethod = 'marker'
-
 -- }}}
 
 -- 5. KEY MAPPINGS {{{
@@ -362,6 +399,7 @@ vim.api.nvim_create_autocmd('FileType', {
     opt.tabstop = 2
     opt.shiftwidth = 2
     opt.softtabstop = 2
+    opt.foldmethod = 'marker'
   end,
 })
 -- }}}
