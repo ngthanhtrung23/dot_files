@@ -12,13 +12,7 @@
         co = checkout
 
         # Show the diff between the latest commit and the current state
-        d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-
-        # `git di $number` shows the diff between the state `$number` revisions ago and the current state
-        di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
-
-        # Pull in remote changes for the current repository and all its submodules
-        p = !"git pull; git submodule foreach git pull origin master"
+        d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
 
         # Clone a repository including all submodules
         c = commit
@@ -26,105 +20,45 @@
         # Commit all changes
         ca = !git add -A && git commit -av
 
-        # Switch to a branch, creating it if necessary
-        go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
-
-        # Show verbose output about tags, branches or remotes
-        tags = tag -l
-        branches = branch -a
-        remotes = remote -v
-
         # Amend the currently staged files to the latest commit
         amend = commit --amend --reuse-message=HEAD
 
-        # Credit an author on the latest commit
-        credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
-
-        # Interactive rebase with the given number of latest commits
-        reb = "!r() { git rebase -i HEAD~$1; }; r"
-
-        # Find branches containing commit
-        fb = "!f() { git branch -a --contains $1; }; f"
-
-        # Find tags containing commit
-        ft = "!f() { git describe --always --contains $1; }; f"
-
-        # Find commits by source code
-        fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
-
-        # Find commits by commit message
-        fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
-
-        # Remove branches that have already been merged with master
-        # a.k.a. ‘delete merged’
-        dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-
-        # List contributors with number of commits
-        contributors = shortlog --summary --numbered
+        po = push origin HEAD
 
 [apply]
-
         # Detect whitespace errors when applying a patch
         whitespace = fix
 
-[core]
-        # Use custom `.gitignore` and `.gitattributes`
-        excludesfile = ~/.gitignore
-        attributesfile = ~/.gitattributes
-
-        # Treat spaces before tabs and all kinds of trailing whitespace as an error
-        # [default] trailing-space: looks for spaces at the end of a line
-        # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
-        whitespace = space-before-tab,-indent-with-non-tab,trailing-space
-
-        # Make `git rebase` safer on OS X
-        # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
-        trustctime = false
-        editor = vim
-        autocrlf = input
-        safecrlf = warn
-
 [color]
-
         # Use colors in Git commands that are capable of colored output when
         # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
         ui = auto
 
-[color "branch"]
-        current = yellow reverse
-        local = yellow
-        remote = green
-
-[color "diff"]
-        meta = yellow bold
-        frag = magenta bold # line info
-        old = red # deletions
-        new = green # additions
-
-[color "status"]
-        added = yellow
-        changed = green
-        untracked = cyan
-
-[diff]
-        # Detect copies as well as renames
-        renames = copies
-
-[help]
-        # Automatically correct and execute mistyped commands
-        autocorrect = 1
-
-[merge]
-        # Include summaries of merged commits in newly created merge commit messages
-        log = true
-        tool = vimdiff
-
-[push]
-        # Use the Git 1.x.x default to avoid errors on machines with old Git
-        # installations. To use `simple` instead, add this to your `~/.extra` file:
-        # `git config --global push.default simple`. See http://git.io/mMah-w.
-        default = matching
-
 [user]
 	name = Trung Nguyen
 	email = ngthanhtrung23@gmail.com
+
+[core]
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+    editor = nvim
+    pager = delta
+
+[delta]
+    navigate = true
+    dark = true
+    side-by-side = true
+    line-numbers = true
+    minus-style = syntax "#29030a"
+    minus-emph-style = syntax "#7a1225"
+    plus-style = syntax "#03260f"
+    plus-emph-style = syntax "#257841"
+    hunk-header-style = syntax bold
+    hunk-header-decoration-style = omit
+    file-style = yellow italic
+    file-decoration-style = yellow ul
+    line-numbers-zero-style = "#4b5263"
+    line-numbers-left-format = "{nm:^4}"
+    line-numbers-right-format = "{np:^4}"
+
+[interactive]
+    diffFilter = delta --color-only
